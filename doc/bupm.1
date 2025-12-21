@@ -1,0 +1,33 @@
+.TH BUPM 1 "2025-12-21" "bupm 1.x" "Command"
+.SH NAME
+bupm \- the binary update and package manager
+
+.SH SYNOPSIS
+.B bupm
+.RI <command> [args]
+
+.SH DESCRIPTION
+.B bupm
+is a package manager with binary packages for Linux. It supports installation from a repository and can install multiple files to different directories, i.e. it is not needed to run different commands to install to locations (install etc.)
+This means that it is essentially like make / meson (ninja), but with prebuilt binaries, version information and update support.
+
+.SH COMMANDS
+.TP
+.B fetch <package>
+Fetches information about the selected package.
+
+.TP
+.B --help, --about
+These flags show information about bupm.
+
+.SH EXAMPLES
+.RS
+bupm fetch hello_world
+.br
+bupm --help
+.br
+bupm --about
+
+.SH SEE-ALSO 
+bupm-fetch(1)
+
