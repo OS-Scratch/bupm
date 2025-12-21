@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <fetch.h>
 #include <string>
 #include <cctype>
@@ -14,16 +15,33 @@ size_t WriteCallback(void * contents, size_t size, size_t nmemb, void* userp) {
     return totalsize;
 }
 
+std::string getrepopath(const std::string& repoconf) {
+    std::ifstream file(repoconf);
+    if (!file) {
+	std::cerr << "File " << repoconf << "doesn't exist or mismatch. " << std::endl << "Try creating one or reinstalling bupm.";
+	return "";
+    }
+    std::string line;
+    std::getline(file, line);
+    return line;
+}
+
+std::string makeurl(const std::string& base, const std::string pkgname) {
+    if (pkgname.empty()) return "";
+    char first = std::tolower(pkgname[0]);
+    return base + "/" + first + "/" + pkgname + "/pkgdesc.yaml";
+}
+
 std::string fetch_url(const std::string& url) {
     CURL* curl = curl_easy_init();
     std::string readBuffer;
 
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-        // Schreibe empfangene Daten in readBuffer
+        // Save files in buffer
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-        // Optional: SSL prüfen (bei GitHub HTTPS)
+        // Check SSL
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 2L);
 
@@ -89,14 +107,16 @@ void Delivery::show(int argc, char* argv[]) {
 	return;
     }
 
-    char initial = std::tolower(pkgname[0]);
-    
-    std::string url = "https://raw.githubusercontent.com/OS-Scratch/bupm_source/main/";
-    url += initial;
-    url += "/";
-    url += pkgname;
-    url += "/pkgdesc.yaml";
+    std::string repoconf = "/etc/bupm/repositories";
+    std::string baseurl = getrepopath(repoconf);
 
+    if (baseurl.empty()) {
+	std::cerr << "Error while reading file, empty.";
+	return;
+    }
+    
+    std::string url = makeurl(baseurl, pkgname);
+    
     std::cout << "Fetching package " << pkgname << " from " << url << std::endl;
 
     std::string content = fetch_url(url);
