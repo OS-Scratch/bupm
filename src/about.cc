@@ -4,6 +4,6 @@
 #include <stdio.h>
 
 void About::show() {
-    std::cout << "bupm version 1.1.5, released Dec 21 2025 \n";
+    std::cout << "bupm version 1.1.6 build 25122025, development release\n";
     std::cout << "Binary-based package manager for Linux \n";
 }
