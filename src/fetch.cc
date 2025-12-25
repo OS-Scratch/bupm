@@ -18,7 +18,7 @@ size_t WriteCallback(void * contents, size_t size, size_t nmemb, void* userp) {
 std::string getrepopath(const std::string& repoconf) {
     std::ifstream file(repoconf);
     if (!file) {
-	std::cerr << "File " << repoconf << "doesn't exist or mismatch. " << std::endl << "Try creating one or reinstalling bupm.";
+	std::cerr << "File " << repoconf << "doesn't exist or mismatch. " << std::endl << "Try creating one." << std::endl;
 	return "";
     }
     std::string line;
@@ -103,7 +103,7 @@ void Delivery::show(int argc, char* argv[]) {
     }
     std::string pkgname = argv[2];
     if (std::string(argv[2]) == "packages") {
-	std::cout << "You found me, even though I'm still in development! \n";
+	std::cout << "Hey, I'm not a postman. Go and fetch your own packages.\n";
 	return;
     }
 
@@ -124,7 +124,7 @@ void Delivery::show(int argc, char* argv[]) {
     if (!content.empty()) {
 	yamlread(content);
     } else {
-	std::cout << "Failed to fetch or empty content; try again later. \n If this issue persists, create a new issue.";
+	std::cout << "Failed to fetch or empty content; try again later. \n If this issue persists, create a new issue on the project repo.";
 	return;
     }
 }
