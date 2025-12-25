@@ -1,0 +1,17 @@
+.TH BUPM 1 "2025-12-25" "bupm 1.x" "Administrative Tools"
+.SH NAME
+bupm repositories - software comes from more than a place
+
+.SH DESCRIPTION
+.B bupm repositories
+are like boxes for yourr favorite software. bupm goes and downloads files from the. Currently, only one at a time can be enabled, but this is planned to change in the future.
+
+.SH LOCATION
+The current repository location is saved at /etc/bupm/repositories.
+Starting with 1.1.6 build 25122025, bupm automatically configures it on installation. 1.1.5 introduced manual repo support. Pre-1.1.6 users are recommended to upgrade.
+
+.SH PURPOSE
+bupm is not "single repo-centric" (see snapd). Rather, the user has a choice to choose where to fetch software from. Only one repository can be activated at a time. This can be easily bypassed with some alias in your bashrc. Of course, this can also let malware into the system, but loads of distros use this concept since ages and we believe the user is clever enough to not enter the repo url to a link such as "linuxvirus.sp.am/totallynotsuspicious/totalsaferepo".
+
+.SH SEE-ALSO 
+bupm(1)
