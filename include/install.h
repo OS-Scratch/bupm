@@ -1,7 +1,8 @@
 #pragma once
+#include <string>
 
 class Installer {
 public:
     static void install(int argc, char* argv[]);
-    std::string mktemp();
+    static std::string mktemp();
 };
