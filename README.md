@@ -2,7 +2,7 @@
 ## Installing
 bupm uses the meson / ninja build system. 
 It depends on yaml-cpp and libcurl (on most package managers, install the package with dev or devel suffix), and also make sure to have a C compiler in $PATH.
-If it doesn't find the libraries, try running export ```PKG_CONFIG_PATH=/usr/lib64/pkgconfig```
+If it doesn't find the libraries, try running ```export PKG_CONFIG_PATH=/usr/lib64/pkgconfig```
 To install:
 ```bash
 git clone https://github.com/OS-Scratch/bupm.git
