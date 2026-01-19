@@ -61,11 +61,22 @@ int Repository::handle(int argc, char* argv[]) {
         Repository::set(argc, argv);
         return 0;
     }
+    
+    if (strcmp(argv[2], "--help") == 0) {
+	Repository::help;
+	return 0;
+    }
 
-    std::cerr << "bupm: repo: invalid argument" << std::endl;
+    std::cerr << "bupm: repo: invalid argument, provide --help for details." << std::endl;
     return 1;
 }
 
+void Repository::help() {
+    std::cout << "Usage: bupm repo [set, update, show] \n";
+    std::cout << "set: Sets the repository to the provided string. \n";
+    std::cout << "update: Updates the local package database. \n";
+    std::cout << "show: Shows the repository in use. \n";
+}	
 void Repository::update(int argc, char* argv[]) {
     std::cout << "Updating repositories..." << std::endl;
     const std::string urlfile = "/etc/bupm/repositories";
@@ -130,6 +141,7 @@ void Repository::set(int argc, char* argv[]) {
         std::cerr << "bupm: repo: set: invalid number of arguments" << std::endl;
         return;
     }
+
     std::string repo_url = argv[3];
     std::cout << "Setting repository to " << repo_url << std::endl;
 
