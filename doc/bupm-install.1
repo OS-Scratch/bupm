@@ -10,6 +10,12 @@ bupm-install \- your new best friend for installing stuff quickly
 .B bupm install
 allows installing packages easily. It is very fast and simpler to run than compiling a source tarball and installing it. It uses tar archives for distribution, which are then extracted to the system root. 
 
+.SH DURATION
+Compared to other package managers, bupm is very fast. Installing similar no-dep packages such as hello_world took:
+- 9.140 seconds on AlmaLinux yum (with -y passed)
+- 1 min 11.474sec on NixOS (hello package)
+- 0.114sec on bupm
+
 .SH COMMANDS
 .TP
 .B install <pkg>
