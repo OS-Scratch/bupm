@@ -1,0 +1,23 @@
+.TH BUPM-INSTALL 1 "2026-01-19" "bupm 1.x" "Administrative Commands"
+.SH NAME
+bupm-install \- your new best friend for installing stuff quickly
+
+.SH SYNOPSIS
+.B bupm install
+.RI <package>
+
+.SH DESCRIPTION
+.B bupm install
+allows installing packages easily. It is very fast and simpler to run than compiling a source tarball and installing it. It uses tar archives for distribution, which are then extracted to the system root. 
+
+.SH COMMANDS
+.TP
+.B install <pkg>
+Downloads the tar archive and extracts it to root, essentially installing the package. <pkg> represents the package to be installed.
+
+.SH EXAMPLES
+.RS
+bupm install hello_world
+
+.SH SEE-ALSO 
+bupm-fetch(1)

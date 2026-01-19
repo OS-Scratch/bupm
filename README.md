@@ -14,5 +14,4 @@ ninja
 sudo ninja install
 ```
 ## Usage
-bupm can currently only display help and about itself (--help resp. --about) and fetch the yaml pkgdesc.yaml of a file and show it to the terminal.
-
+bupm 1.2 introduced install and repository capabilities.

@@ -1,17 +1,37 @@
-.TH BUPM 1 "2025-12-25" "bupm 1.x" "Administrative Tools"
+.TH BUPM-REPO 1 "2026-01-19" "bupm 1.x" "Administrative Commands"
 .SH NAME
-bupm repositories - software comes from more than a place
+bupm-repo \- software comes from more places
+
+.SH SYNOPSIS
+.B bupm repo
+.RI [set, show, update]
 
 .SH DESCRIPTION
-.B bupm repositories
-are like boxes for yourr favorite software. bupm goes and downloads files from the. Currently, only one at a time can be enabled, but this is planned to change in the future.
+.B bupm repo
+is the bupm front-end using for managing repositories. It provides access to modifying and reading /etc/bupm/repositories in an easier way, and allows synchronising the repository with the local package database. 
 
-.SH LOCATION
-The current repository location is saved at /etc/bupm/repositories.
-Starting with 1.1.6 build 25122025, bupm automatically configures it on installation. 1.1.5 introduced manual repo support. Pre-1.1.6 users are recommended to upgrade.
+.SH COMMANDS
+.TP
+.B set <repo>
+Set the repository (defined in /etc/bupm/repositories) to the provided text in <repo>.
+(Equivalent to editing the config file in most other package managers.)
 
-.SH PURPOSE
-bupm is not "single repo-centric" (see snapd). Rather, the user has a choice to choose where to fetch software from. Only one repository can be activated at a time. This can be easily bypassed with some alias in your bashrc. Of course, this can also let malware into the system, but loads of distros use this concept since ages and we believe the user is clever enough to not enter the repo url to a link such as "linuxvirus.sp.am/totallynotsuspicious/totalsaferepo".
+.TP
+.B show
+Show the currently active repository.
+(Equivalent to running the cat command on the repository file.)
+
+.TP
+.B update
+Update the /etc/bupm/pkgs and pkgtxt files, which contain information about the available packages in the repository.
+(Equivalent to apt update, dnf makecache or pacman -Sy.)
+
+.SH EXAMPLES
+.RS
+bupm repo set https://raw.githubusercontent.com/OS-Scratch/bupm_source/main
+.br
+bupm repo update
 
 .SH SEE-ALSO 
-bupm(1)
+bupm-install(1) bupm-fetch(1)
+

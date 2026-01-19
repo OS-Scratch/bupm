@@ -1,10 +1,10 @@
-.TH BUPM 1 "2025-12-21" "bupm 1.x" "Command"
+.TH BUPM 1 "2026-01-19" "bupm 1.x" "Command"
 .SH NAME
 bupm \- the binary update and package manager
 
 .SH SYNOPSIS
 .B bupm
-.RI <command> [args]
+.RI [install, repo, fetch] <--help, --about>
 
 .SH DESCRIPTION
 .B bupm
@@ -15,6 +15,14 @@ This means that it is essentially like make / meson (ninja), but with prebuilt b
 .TP
 .B fetch <package>
 Fetches information about the selected package.
+
+.TP
+.B install <package>
+Installs the provided package.
+
+.TP
+.B repo <set, show, update> <repourl>
+Provides utilities to managing repositories.
 
 .TP
 .B --help, --about
@@ -29,5 +37,4 @@ bupm --help
 bupm --about
 
 .SH SEE-ALSO 
-bupm-fetch(1)
-
+bupm-fetch(1) bupm-install(1) bupm-repo(1)
