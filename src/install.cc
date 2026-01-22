@@ -133,7 +133,7 @@ std::string makeurl(const std::string& base, const std::string pkgname) {
     return base + "/" + first + "/" + pkgname + "/source.tar";
 }
 
-} // namespace
+}
 
 namespace fs = std::filesystem;
 
@@ -169,7 +169,7 @@ void Installer::install(int argc, char* argv[]) {
     }
 
     if (argc < 3) {
-	std::cout << "Package not provided, try hello_world?";
+	std::cout << "Package not provided, try hello_world?" << std::endl;
 	exit(1);
     }
     std::string pkgname = argv[2];

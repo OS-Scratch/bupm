@@ -43,7 +43,7 @@ bool dl(const std::string& url, const std::string& output) {
 
 int Repository::handle(int argc, char* argv[]) {
     if (argc < 3) {
-        std::cerr << "bupm: repo: invalid number of arguments" << std::endl;
+        std::cerr << "bupm: repo: invalid number of arguments, consult bupm repo --help for details" << std::endl;
         return 1;
     }
 
@@ -63,7 +63,7 @@ int Repository::handle(int argc, char* argv[]) {
     }
     
     if (strcmp(argv[2], "--help") == 0) {
-	Repository::help;
+	Repository::help();
 	return 0;
     }
 
@@ -76,7 +76,8 @@ void Repository::help() {
     std::cout << "set: Sets the repository to the provided string. \n";
     std::cout << "update: Updates the local package database. \n";
     std::cout << "show: Shows the repository in use. \n";
-}	
+}
+
 void Repository::update(int argc, char* argv[]) {
     std::cout << "Updating repositories..." << std::endl;
     const std::string urlfile = "/etc/bupm/repositories";
