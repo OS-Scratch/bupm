@@ -1,5 +1,14 @@
 # bupm changelog
-**Current Version: 1.2.2**
+**Current Version: 1.2.3**
+
+## 1.2.3-git:<INPR>
+### New Features
+- bupm repository now has toml files instead of yaml
+### Changes
+**fetch.cc**:
+- Add toml support
+**meson.build**:
+- Update dependencies (remove yaml-cpp, include tomlplusplus)
 
 ## 1.2.2-git:857a8b0..3e8e0f4
 ## **Security Patch**
