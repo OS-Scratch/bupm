@@ -1,7 +1,7 @@
 # bupm changelog
 **Current Version: 1.2.3**
 
-## 1.2.3-git:<INPR>
+## 1.2.3-git:3e8e0f4..d5a9d62
 ### New Features
 - bupm repository now has toml files instead of yaml
 ### Changes
