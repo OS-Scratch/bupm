@@ -24,8 +24,8 @@ int main(int argc, char* argv[]) {
         return 0;
     }
     else if (std::string(argv[1]) == "install") {
-	Installer::install(argc, argv);
-	return 0;
+	      Installer::install(argc, argv);
+	      return 0;
     }
     else if (std::string(argv[1]) == "repo") {
 	Repository::handle(argc, argv);

@@ -1,1 +1,1 @@
-install_data('repositories', install_dir: '/etc/bupm')
+install_data(['repositories', 'bupm-pub'], install_dir: '/etc/bupm')

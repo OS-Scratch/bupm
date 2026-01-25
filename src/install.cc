@@ -12,8 +12,62 @@
 #include <archive_entry.h>
 #include <fstream>
 #include <cctype>
+#include <sodium.h>
 
 namespace {
+
+bool verify_signature(const std::string& tarPath, const std::string& sigPath) {
+    if (sodium_init() < 0) {
+        std::cerr << "Sodium initialization failed" << std::endl;
+        return false;
+    }
+
+    unsigned char pk[crypto_sign_PUBLICKEYBYTES];
+    std::ifstream pkFile("/etc/bupm/bupm.pub", std::ios::binary);
+    if (!pkFile) {
+        std::cerr << "Trusted public key not found in /etc/bupm/bupm.pub" << std::endl;
+        return false;
+    }
+    pkFile.read(reinterpret_cast<char*>(pk), sizeof pk);
+    if (pkFile.gcount() != sizeof pk) {
+        std::cerr << "Invalid public key file size" << std::endl;
+        return false;
+    }
+    
+    unsigned char sig[crypto_sign_BYTES];
+    std::ifstream sFile(sigPath, std::ios::binary);
+    if (!sFile) {
+        std::cerr << "Signature file not found: " << sigPath << std::endl;
+        return false;
+    }
+    sFile.read(reinterpret_cast<char*>(sig), sizeof sig);
+    if (sFile.gcount() != sizeof sig) {
+        std::cerr << "Invalid signature file size" << std::endl;
+        return false;
+    }
+
+    crypto_sign_state state;
+    crypto_sign_init(&state);
+
+    std::ifstream tFile(tarPath, std::ios::binary);
+    if (!tFile) {
+        std::cerr << "Failed to open source for verification: " << tarPath << std::endl;
+        return false;
+    }
+
+    char buffer[4096];
+    while (tFile.read(buffer, sizeof buffer) || tFile.gcount() > 0) {
+        crypto_sign_update(&state, reinterpret_cast<unsigned char*>(buffer), tFile.gcount());
+    }
+
+    if (crypto_sign_final_verify(&state, sig, pk) != 0) {
+        std::cerr << "Signature for package is invalid. This means the file may have been tampered with. Cancelled installation." << std::endl;
+        return false;
+    }
+
+    std::cout << "Package signature verified successfully." << std::endl;
+    return true;
+}
 
 int extract(const std::string& path, const std::string tgt) {
     struct archive* a = archive_read_new();
@@ -194,6 +248,20 @@ void Installer::install(int argc, char* argv[]) {
 
     if (!download(url, installtgt.string())) {
         std::cerr << "Error while downloading source archive" << std::endl;
+        exit(1);
+    }
+
+    std::string sigUrl = url + ".sig";
+    fs::path sigtgt = fs::path(installtmp) / "source.tar.sig";
+
+    std::cout << "Downloading signature from " << sigUrl << std::endl;
+    if (!download(sigUrl, sigtgt.string())) {
+        std::cerr << "Error: Could not download signature. Cancelling installation for security issues." << std::endl;
+        exit(1);
+    }
+
+    if (!verify_signature(installtgt.string(), sigtgt.string())) {
+        std::cerr << "Verification failed. Aborting installation." << std::endl;
         exit(1);
     }
 
