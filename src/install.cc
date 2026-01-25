@@ -24,7 +24,7 @@ int extract(const std::string& path, const std::string tgt) {
     archive_read_support_format_tar(a);
     archive_read_support_filter_all(a);
 
-    archive_write_disk_set_options(ext, ARCHIVE_EXTRACT_TIME | ARCHIVE_EXTRACT_PERM | ARCHIVE_EXTRACT_ACL | ARCHIVE_EXTRACT_FFLAGS);
+    archive_write_disk_set_options(ext, ARCHIVE_EXTRACT_TIME | ARCHIVE_EXTRACT_PERM | ARCHIVE_EXTRACT_ACL | ARCHIVE_EXTRACT_FFLAGS | ARCHIVE_EXTRACT_SECURE_NODOTDOT | ARCHIVE_EXTRACT_SECURE_SYMLINKS);
     archive_write_disk_set_standard_lookup(ext);
 
     if ((r = archive_read_open_filename(a, path.c_str(), 10240)) != ARCHIVE_OK) {
