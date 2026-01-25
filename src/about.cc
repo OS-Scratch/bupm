@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 void About::show() {
-    std::cout << "bupm version 1.2.2, released 25.01.2026 \n";
+    std::cout << "bupm version 1.2.3, released 25.01.2026 \n";
     std::cout << "Binary-based package manager for Linux \n";
     std::cout << "Currently, bupm is alpha software, so problems may occur.\n";
 }
