@@ -68,25 +68,19 @@ void tomlread(const std::string& tomlStr) {
             std::cout << "Version: " << **version << std::endl;
         if (auto desc = (*pkg)["desc"].as_string())
             std::cout << "Description: " << **desc << std::endl;
-    } else {
-        std::cout << "No package information found.\n";
     }
 
-    if (auto files = tbl["files"].as_table()) {
-        if (auto targets = (*files)["targets"].as_table()) {
-            std::cout << "Files to copy:" << std::endl;
-            for (auto&& [key, value] : *targets) {
-                std::cout << "  " << key << ":" << std::endl;
-                if (auto fileNode = value.as_table()) {
-                    std::string name = (*fileNode)["name"].value_or("unknown");
-                    std::string target = (*fileNode)["target"].value_or("unknown");
-                    std::cout << "    name: " << name << std::endl;
-                    std::cout << "    target: " << target << std::endl;
+    if (auto deps = tbl["dependencies"].as_table()) {
+        if (auto direct = (*deps)["direct"].as_array()) {
+            if (!direct->empty()) {
+                std::cout << "Dependencies:" << std::endl;
+                for (auto&& val : *direct) {
+                    if (auto depName = val.as_string()) {
+                        std::cout << "  - " << **depName << std::endl;
+                    }
                 }
             }
         }
-    } else {
-        std::cout << "No files to copy found.\n";
     }
 }
 

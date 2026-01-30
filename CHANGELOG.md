@@ -1,5 +1,18 @@
 # bupm changelog
-**Current Version: 1.2.3**
+**Current Version: 1.3.0**
+
+## 1.3.0-git:..
+### New Features
+- removing packages: support implemented
+- added cleaner dependency support
+### Changes
+**remove.cc**, **remove.h**:
+- Added removing capability
+**main.cc**:
+- implemented remove.cc / remove.h accessibility
+**install.cc**:
+- fix dependency support
+- fix critical archive error where symlinks would not work (1.2.2 fix, didn't work as expected), packages zlib and zlib-ng
 
 ## 1.2.3-git:3e8e0f4..d5a9d62
 ### New Features

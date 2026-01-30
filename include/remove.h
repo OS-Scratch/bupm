@@ -3,5 +3,5 @@
 
 class Remover {
 public:
-    static int remove_package(const std::string& pkgname);
+    static int Remove(const std::string& pkgname);
 };

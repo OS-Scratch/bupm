@@ -3,6 +3,7 @@
 #include "repo.h"
 #include "about.h"
 #include "install.h"
+#include "remove.h"
 #include <string>
 #include <iostream>
 
@@ -27,6 +28,13 @@ int main(int argc, char* argv[]) {
 	      Installer::install(argc, argv);
 	      return 0;
     }
+    else if (std::string(argv[1]) == "remove") {
+        if (argc < 3) {
+            std::cout << "Usage: bupm remove <package_name>" << std::endl;
+            return 1;
+        }
+        return Remover::Remove(argv[2]);
+    }
     else if (std::string(argv[1]) == "repo") {
 	Repository::handle(argc, argv);
     }
@@ -35,4 +43,3 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 }
-
