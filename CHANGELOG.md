@@ -1,7 +1,7 @@
 # bupm changelog
 **Current Version: 1.3.0**
 
-## 1.3.0-git:..
+## 1.3.0-git:d5a9d62..b0d12a0
 ### New Features
 - removing packages: support implemented
 - added cleaner dependency support
